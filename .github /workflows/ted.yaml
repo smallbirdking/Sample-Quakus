@@ -1,0 +1,25 @@
+---
+name: Ted run for java unit test proposals
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Ted run
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: TED run
+        uses: OpenGuidou/ted@v0.9
+        env:
+          OPENAI_API_VERSION: ${{ secrets.OPENAI_API_VERSION }}
+          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+          GPT_DEPLOYMENT_NAME: ${{ secrets.GPT_DEPLOYMENT_NAME }}
+          EMBEDDING_DEPLOYMENT_NAME: ${{ secrets.EMBEDDING_DEPLOYMENT_NAME }}
+        with:
+          ted-flavor: unit-tests
