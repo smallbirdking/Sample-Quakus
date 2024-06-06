@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    environment: OPENAPI
     runs-on: ubuntu-latest
     name: Ted run
     steps:
