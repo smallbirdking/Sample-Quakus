@@ -1,5 +1,5 @@
 ---
-name: Ted run for java unit test proposals
+name: Ted run for python migration
 
 on:
   workflow_dispatch:
@@ -13,13 +13,22 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Configure Git author
+        run: |
+          git config --local user.email "ted@github.com"
+          git config --local user.name "TED"
+          git config --global --add safe.directory /github/workspace
       - name: TED run
-        uses: OpenGuidou/ted@v0.9
+        uses: OpenGuidou/ted@v0.32
         env:
           OPENAI_API_VERSION: ${{ secrets.OPENAI_API_VERSION }}
           AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
           AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
           GPT_DEPLOYMENT_NAME: ${{ secrets.GPT_DEPLOYMENT_NAME }}
           EMBEDDING_DEPLOYMENT_NAME: ${{ secrets.EMBEDDING_DEPLOYMENT_NAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           ted-flavor: unit-tests
+          github-repository: ${{ github.repository }}
+          push: true
+          git-branch: ${{ github.ref_name }}
