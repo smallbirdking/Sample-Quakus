@@ -20,7 +20,7 @@ jobs:
           git config --local user.name "GitHub Action"
           git config --global --add safe.directory /github/workspace
       - name: TED run
-        uses: OpenGuidou/ted@v0.40
+        uses: OpenGuidou/ted@V0.40
         env:
           OPENAI_API_VERSION: ${{ secrets.OPENAI_API_VERSION }}
           AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
